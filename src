@@ -1,0 +1,36 @@
+import { useState } from 'react'
+import { ComposableMap, Geographies, Geography } from "react-simple-maps"
+
+const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json"
+
+export default function App() {
+  const [countyData, setCountyData] = useState({})
+
+  const getColor = (countyId) => {
+    const people = countyData[countyId] || []
+    if(people.length === 0) return "#056d14"
+    return people.length % 2 === 1? "#FF0000" : "#0066FF"
+  }
+
+  const handleCountyClick = (geo) => {
+    const name = prompt(`Plant leaf in ${geo.properties.name} County!\nNAME:`)
+    if(!name) return
+    const zodiac = prompt("ZODIAC:")
+    if(!zodiac) return
+    setCountyData(prev => ({...prev, [geo.id]: [...(prev[geo.id]||[]), {name, zodiac}]}))
+  }
+
+  return (
+    <div style={{background: "#0a0a0a", minHeight: "100vh"}}>
+      <h1 style={{color: "#056d14", textAlign: "center"}}>TREE OF LIFE</h1>
+      <ComposableMap projection="geoAlbersUsa">
+        <Geographies geography={geoUrl}>
+          {({ geographies }) => geographies.map((geo) => (
+            <Geography key={geo.rsmKey} geography={geo} onClick={() => handleCountyClick(geo)}
+              style={{default: {fill: getColor(geo.id), stroke: "#111", opacity: countyData[geo.id]?1:0.2}}}/>
+          ))}
+        </Geographies>
+      </ComposableMap>
+    </div>
+  )
+}
