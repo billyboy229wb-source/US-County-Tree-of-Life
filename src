@@ -33,4 +33,4 @@ export default function App() {
       </ComposableMap>
     </div>
   )
-}
+}npm install react-simple-maps
