@@ -1,1 +1,1 @@
-npm run dev --host
+npx degit codesandbox/react-vite . && npm i react-simple-maps && npm run dev --host run dev --host
