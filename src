@@ -12,7 +12,8 @@ export default function App() {
     return people.length % 2 === 1? "#FF0000" : "#0066FF"
   }
 
-  const handleCountyClick = (geo) => {
+  const handleCountyClick = (geo) => {npm install react-simple-maps
+npm run dev --host
     const name = prompt(`Plant leaf in ${geo.properties.name} County!\nNAME:`)
     if(!name) return
     const zodiac = prompt("ZODIAC:")
